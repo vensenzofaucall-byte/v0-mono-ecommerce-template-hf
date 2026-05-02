@@ -4,64 +4,100 @@ import { FadeImage } from "@/components/fade-image";
 
 const features = [
   {
-    image: "/images/4312e1bb-e030-4528-b6df-8a6ea69fe384.png",
-    span: "col-span-2 row-span-2", // Large
+    image: "/images/capsule-hallway.jpg",
+    label: "The Hallway",
+    span: "col-span-2 row-span-2",
   },
   {
-    image: "/images/b2401fa5-4eac-465f-b1f9-014aadc182ee.png",
-    span: "col-span-1 row-span-1", // Small
+    image: "/images/capsule-pod-interior.jpg",
+    label: "Pod Interior",
+    span: "col-span-1 row-span-1",
   },
   {
-    image: "/images/dd1b32a8-3722-4ea2-8808-10d53532809d.png",
-    span: "col-span-1 row-span-1", // Small
+    image: "/images/capsule-numbers.jpg",
+    label: "Pod 19—24",
+    span: "col-span-1 row-span-1",
   },
   {
-    image: "/images/61af06cc-84d0-4031-a0ed-76fc43b1c1e1.png",
-    span: "col-span-1 row-span-2", // Tall
+    image: "/images/capsule-window-suite.jpg",
+    label: "Suite 07",
+    span: "col-span-1 row-span-2",
   },
   {
-    image: "/images/249083d2-c49c-4c06-a125-376284d90c42.png",
-    span: "col-span-1 row-span-1", // Small
+    image: "/images/capsule-lounge.jpg",
+    label: "The Lounge",
+    span: "col-span-1 row-span-1",
   },
   {
-    image: "/images/7638f650-8586-4403-8c13-141921a04f9d.png",
-    span: "col-span-2 row-span-1", // Wide
+    image: "/images/capsule-storefront.jpg",
+    label: "On Saint-Denis",
+    span: "col-span-2 row-span-1",
   },
   {
-    image: "/images/5b3bdb95-fac7-4d22-aa97-98b5d547b2db.png",
-    span: "col-span-1 row-span-1", // Small
+    image: "/images/capsule-bathroom.jpg",
+    label: "Bathhouse",
+    span: "col-span-1 row-span-1",
   },
   {
-    image: "/images/634f7bae-77a5-49d0-a0ab-5271a6194e66.png",
-    span: "col-span-1 row-span-2", // Tall
+    image: "/images/capsule-night.jpg",
+    label: "After Hours",
+    span: "col-span-1 row-span-2",
   },
   {
-    image: "/images/09ffa8fd-cdd1-453f-9aa2-d6c702a1f4b5.png",
-    span: "col-span-2 row-span-1", // Wide
+    image: "/images/capsule-green-wall.jpg",
+    label: "Vertical Garden",
+    span: "col-span-2 row-span-1",
   },
   {
-    image: "/images/040e36b1-d16f-474b-a712-a9979e6ab479.png",
-    span: "col-span-1 row-span-1", // Small
+    image: "/images/capsule-exterior-night.jpg",
+    label: "Dusk",
+    span: "col-span-1 row-span-1",
   },
 ];
 
 export function FeaturedProductsSection() {
   return (
-    <section id="technology" className="relative bg-background py-20 md:py-32">
+    <section id="hotel" className="relative bg-background py-20 md:py-28">
       <div className="px-4 md:px-12 lg:px-20">
+        {/* Section heading */}
+        <div className="mx-auto max-w-7xl mb-10 md:mb-14 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+          <div>
+            <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground">
+              The Hotel
+            </p>
+            <h2 className="mt-3 font-display italic text-4xl md:text-5xl lg:text-6xl text-foreground leading-[1.05]">
+              A house of small rooms.
+            </h2>
+          </div>
+          <p className="max-w-md text-sm leading-relaxed text-muted-foreground md:text-base">
+            Two floors of black aluminum capsules wrapped around a living
+            green wall, a brass-trimmed bathhouse, and a quiet ground-floor
+            lounge.
+          </p>
+        </div>
+
         {/* Bento Grid */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 w-full max-w-7xl mx-auto auto-rows-[180px] md:auto-rows-[220px]">
           {features.map((feature, index) => (
-            <div 
-              key={index} 
-              className={`relative overflow-hidden rounded-lg border border-gray-200 ${feature.span}`}
+            <div
+              key={index}
+              className={`group relative overflow-hidden border border-border/60 bg-secondary ${feature.span}`}
             >
               <FadeImage
                 src={feature.image || "/placeholder.svg"}
-                alt={`Architecture sketch ${index + 1}`}
+                alt={feature.label}
                 fill
-                className="object-cover"
+                className="object-cover transition-transform duration-700 group-hover:scale-105"
               />
+              <div className="absolute inset-0 bg-gradient-to-t from-background/85 via-background/0 to-transparent" />
+              <div className="absolute bottom-3 left-3 right-3 flex items-end justify-between">
+                <span className="text-xs uppercase tracking-[0.2em] text-foreground/90">
+                  {feature.label}
+                </span>
+                <span className="font-mono text-[10px] text-muted-foreground">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+              </div>
             </div>
           ))}
         </div>

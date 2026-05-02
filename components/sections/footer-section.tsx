@@ -3,51 +3,69 @@
 import Link from "next/link";
 
 const footerLinks = {
-  explore: [
-    { label: "Products", href: "#products" },
-    { label: "Technology", href: "#technology" },
-    { label: "Gallery", href: "#gallery" },
-    { label: "Accessories", href: "#accessories" },
+  hotel: [
+    { label: "The Stay", href: "#stay" },
+    { label: "Capsules", href: "#rooms" },
+    { label: "The Hotel", href: "#hotel" },
+    { label: "Bathhouse", href: "#hotel" },
   ],
-  about: [
-    { label: "Our Story", href: "#" },
-    { label: "Team", href: "#" },
-    { label: "Careers", href: "#" },
+  visit: [
+    { label: "Location", href: "#" },
+    { label: "Neighbourhood", href: "#" },
+    { label: "Group bookings", href: "#" },
     { label: "Contact", href: "#" },
   ],
   service: [
-    { label: "FAQ", href: "#" },
-    { label: "Shipping", href: "#" },
-    { label: "Returns", href: "#" },
-    { label: "Warranty", href: "#" },
+    { label: "Reservations", href: "#book" },
+    { label: "House rules", href: "#" },
+    { label: "Cancellation", href: "#" },
+    { label: "Press", href: "#" },
   ],
 };
 
 export function FooterSection() {
   return (
     <footer className="bg-background">
+      {/* Big closing wordmark */}
+      <div className="border-t border-border px-6 pt-20 md:px-12 lg:px-20">
+        <p className="font-display italic text-foreground text-[20vw] leading-[0.85] md:text-[15vw]">
+          Capsule.
+        </p>
+      </div>
+
       {/* Main Footer Content */}
-      <div className="border-t border-border px-6 py-16 md:px-12 md:py-20 lg:px-20">
+      <div className="border-t border-border mt-16 px-6 py-16 md:px-12 md:py-20 lg:px-20">
         <div className="grid grid-cols-2 gap-12 md:grid-cols-4 lg:grid-cols-5">
           {/* Brand */}
           <div className="col-span-2 md:col-span-1 lg:col-span-2">
-            <Link href="#hero" className="text-lg font-medium text-foreground">
-              MONO
+            <Link
+              href="#hero"
+              className="text-base font-medium tracking-[0.2em] uppercase text-foreground"
+            >
+              Capsule
             </Link>
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-muted-foreground">
-              Sustainable design homes combining contemporary aesthetics with energy efficiency and eco-friendly materials.
+              A boutique capsule hotel folded into a 19th-century stone facade
+              in Montréal&apos;s Plateau Mont-Royal.
+            </p>
+            <p className="mt-6 text-xs uppercase tracking-[0.25em] text-muted-foreground">
+              2040 Saint-Denis
+              <br />
+              Montréal, QC H2X 3K8
             </p>
           </div>
 
-          {/* Explore */}
+          {/* Hotel */}
           <div>
-            <h4 className="mb-4 text-sm font-medium text-foreground">Explore</h4>
+            <h4 className="mb-4 text-xs uppercase tracking-[0.25em] text-muted-foreground">
+              Hotel
+            </h4>
             <ul className="space-y-3">
-              {footerLinks.explore.map((link) => (
+              {footerLinks.hotel.map((link) => (
                 <li key={link.label}>
                   <Link
                     href={link.href}
-                    className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+                    className="text-sm text-foreground/80 transition-colors hover:text-accent"
                   >
                     {link.label}
                   </Link>
@@ -56,15 +74,17 @@ export function FooterSection() {
             </ul>
           </div>
 
-          {/* About */}
+          {/* Visit */}
           <div>
-            <h4 className="mb-4 text-sm font-medium text-foreground">About</h4>
+            <h4 className="mb-4 text-xs uppercase tracking-[0.25em] text-muted-foreground">
+              Visit
+            </h4>
             <ul className="space-y-3">
-              {footerLinks.about.map((link) => (
+              {footerLinks.visit.map((link) => (
                 <li key={link.label}>
                   <Link
                     href={link.href}
-                    className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+                    className="text-sm text-foreground/80 transition-colors hover:text-accent"
                   >
                     {link.label}
                   </Link>
@@ -75,13 +95,15 @@ export function FooterSection() {
 
           {/* Service */}
           <div>
-            <h4 className="mb-4 text-sm font-medium text-foreground">Service</h4>
+            <h4 className="mb-4 text-xs uppercase tracking-[0.25em] text-muted-foreground">
+              Service
+            </h4>
             <ul className="space-y-3">
               {footerLinks.service.map((link) => (
                 <li key={link.label}>
                   <Link
                     href={link.href}
-                    className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+                    className="text-sm text-foreground/80 transition-colors hover:text-accent"
                   >
                     {link.label}
                   </Link>
@@ -95,31 +117,28 @@ export function FooterSection() {
       {/* Bottom Bar */}
       <div className="border-t border-border px-6 py-6 md:px-12 lg:px-20">
         <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
-          <p className="text-xs text-muted-foreground">
-            2026 MONO. All rights reserved.
+          <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
+            © 2026 Capsule Hotel — All rights reserved.
           </p>
 
-          
-
-          {/* Social Links */}
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-5">
             <Link
               href="#"
-              className="text-xs text-muted-foreground transition-colors hover:text-foreground"
+              className="text-xs uppercase tracking-[0.2em] text-muted-foreground transition-colors hover:text-foreground"
             >
               Instagram
             </Link>
             <Link
               href="#"
-              className="text-xs text-muted-foreground transition-colors hover:text-foreground"
+              className="text-xs uppercase tracking-[0.2em] text-muted-foreground transition-colors hover:text-foreground"
             >
-              Twitter
+              Spotify
             </Link>
             <Link
               href="#"
-              className="text-xs text-muted-foreground transition-colors hover:text-foreground"
+              className="text-xs uppercase tracking-[0.2em] text-muted-foreground transition-colors hover:text-foreground"
             >
-              YouTube
+              Press kit
             </Link>
           </div>
         </div>

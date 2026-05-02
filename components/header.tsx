@@ -18,53 +18,57 @@ export function Header() {
   }, []);
 
   return (
-    <header 
-      className={`fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[90%] max-w-3xl transition-all duration-300 ${isScrolled ? "bg-background/80 backdrop-blur-md rounded-full" : "bg-transparent"}`}
-      style={{
-        boxShadow: isScrolled ? "rgba(14, 63, 126, 0.04) 0px 0px 0px 1px, rgba(42, 51, 69, 0.04) 0px 1px 1px -0.5px, rgba(42, 51, 70, 0.04) 0px 3px 3px -1.5px, rgba(42, 51, 70, 0.04) 0px 6px 6px -3px, rgba(14, 63, 126, 0.04) 0px 12px 12px -6px, rgba(14, 63, 126, 0.04) 0px 24px 24px -12px" : "none"
-      }}
+    <header
+      className={`fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[92%] max-w-3xl transition-all duration-300 ${
+        isScrolled
+          ? "bg-background/70 backdrop-blur-md border border-border/60"
+          : "bg-transparent border border-transparent"
+      }`}
     >
-      <div className="flex items-center justify-between transition-all duration-300 px-2 pl-5 py-2">
+      <div className="flex items-center justify-between transition-all duration-300 px-3 pl-5 py-2">
         {/* Logo */}
-        <Link href="#hero" className="text-lg font-medium tracking-tight transition-colors duration-300 text-foreground">
-          MONO
+        <Link
+          href="#hero"
+          className="text-base font-medium tracking-[0.2em] uppercase text-foreground"
+        >
+          Capsule
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden items-center gap-10 md:flex">
+        <nav className="hidden items-center gap-8 md:flex">
           <Link
-            href="#technology"
-            className="text-sm transition-colors text-muted-foreground hover:text-foreground"
+            href="#stay"
+            className="text-sm tracking-wide transition-colors text-muted-foreground hover:text-foreground"
           >
-            Design
+            The Stay
           </Link>
           <Link
-            href="#gallery"
-            className="text-sm transition-colors text-muted-foreground hover:text-foreground"
+            href="#rooms"
+            className="text-sm tracking-wide transition-colors text-muted-foreground hover:text-foreground"
           >
-            Gallery
+            Capsules
           </Link>
           <Link
-            href="#accessories"
-            className="text-sm transition-colors text-muted-foreground hover:text-foreground"
+            href="#hotel"
+            className="text-sm tracking-wide transition-colors text-muted-foreground hover:text-foreground"
           >
-            Models
+            Hotel
           </Link>
           <Link
             href="#about"
-            className="text-sm transition-colors text-muted-foreground hover:text-foreground"
+            className="text-sm tracking-wide transition-colors text-muted-foreground hover:text-foreground"
           >
-            About
+            Journal
           </Link>
         </nav>
 
         {/* CTA */}
         <div className="hidden items-center gap-6 md:flex">
           <Link
-            href="#reserve"
-            className="px-4 py-2 text-sm font-medium transition-all rounded-full bg-foreground text-background hover:opacity-80"
+            href="#book"
+            className="px-4 py-2 text-sm font-medium tracking-wide transition-all bg-accent text-accent-foreground hover:opacity-90"
           >
-            Contact
+            Book a night
           </Link>
         </div>
 
@@ -75,48 +79,48 @@ export function Header() {
           className="transition-colors md:hidden text-foreground"
           aria-label="Toggle menu"
         >
-          {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          {isMenuOpen ? <X size={22} /> : <Menu size={22} />}
         </button>
       </div>
 
       {/* Mobile Menu */}
       {isMenuOpen && (
-        <div className="border-t border-border bg-background px-6 py-8 md:hidden rounded-b-2xl">
+        <div className="border-t border-border bg-background px-6 py-8 md:hidden">
           <nav className="flex flex-col gap-6">
             <Link
-              href="#technology"
+              href="#stay"
               className="text-lg text-foreground"
               onClick={() => setIsMenuOpen(false)}
             >
-              Design
+              The Stay
             </Link>
             <Link
-              href="#gallery"
+              href="#rooms"
               className="text-lg text-foreground"
               onClick={() => setIsMenuOpen(false)}
             >
-              Gallery
+              Capsules
             </Link>
             <Link
-              href="#accessories"
+              href="#hotel"
               className="text-lg text-foreground"
               onClick={() => setIsMenuOpen(false)}
             >
-              Models
+              Hotel
             </Link>
             <Link
               href="#about"
               className="text-lg text-foreground"
               onClick={() => setIsMenuOpen(false)}
             >
-              About
+              Journal
             </Link>
             <Link
-              href="#reserve"
-              className="mt-4 bg-foreground px-5 py-3 text-center text-sm font-medium text-background rounded-full"
+              href="#book"
+              className="mt-4 bg-accent px-5 py-3 text-center text-sm font-medium text-accent-foreground"
               onClick={() => setIsMenuOpen(false)}
             >
-              Contact
+              Book a night
             </Link>
           </nav>
         </div>

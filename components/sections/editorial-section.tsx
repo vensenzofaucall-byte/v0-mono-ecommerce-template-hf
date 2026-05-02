@@ -3,10 +3,10 @@
 import { useRef, useState, useEffect, useCallback } from "react";
 
 const specs = [
-  { label: "Surface Area", value: "180m²" },
-  { label: "Energy Use", value: "15 kWh/m²" },
-  { label: "Solar Panels", value: "40 m²" },
-  { label: "Carbon Balance", value: "-20%" },
+  { label: "Capsules", value: "48" },
+  { label: "Floors", value: "02" },
+  { label: "Check-in", value: "24h" },
+  { label: "Quiet hours", value: "22—07" },
 ];
 
 export function EditorialSection() {
@@ -16,17 +16,16 @@ export function EditorialSection() {
 
   const updateParallax = useCallback(() => {
     if (!videoRef.current) return;
-    
+
     const rect = videoRef.current.getBoundingClientRect();
     const windowHeight = window.innerHeight;
-    
-    // Calculate when video enters and exits viewport
+
     const videoTop = rect.top;
     const videoBottom = rect.bottom;
-    
-    // Progress from 0 (entering viewport) to 1 (exiting viewport)
+
     if (videoBottom > 0 && videoTop < windowHeight) {
-      const progress = 1 - (videoTop + rect.height / 2) / (windowHeight + rect.height);
+      const progress =
+        1 - (videoTop + rect.height / 2) / (windowHeight + rect.height);
       setScrollProgress(Math.max(0, Math.min(1, progress)));
     }
   }, []);
@@ -41,7 +40,7 @@ export function EditorialSection() {
 
     window.addEventListener("scroll", handleScroll, { passive: true });
     updateParallax();
-    
+
     return () => {
       window.removeEventListener("scroll", handleScroll);
       if (rafRef.current) {
@@ -50,22 +49,15 @@ export function EditorialSection() {
     };
   }, [updateParallax]);
 
-  // Parallax effect: video moves up as you scroll down
-  const parallaxY = (scrollProgress - 0.5) * 30; // -15px to +15px range
+  const parallaxY = (scrollProgress - 0.5) * 30;
 
   return (
     <section className="bg-background">
-      {/* Newsletter Banner */}
-      
-
-      {/* Decorative Icons */}
-      <div className="flex items-center justify-center gap-6 pb-20">
-        
-        
-      </div>
-
       {/* Full-width Video with Parallax */}
-      <div ref={videoRef} className="relative aspect-[16/9] w-full md:aspect-[21/9] overflow-hidden">
+      <div
+        ref={videoRef}
+        className="relative aspect-[16/9] w-full md:aspect-[21/9] overflow-hidden"
+      >
         <video
           autoPlay
           loop
@@ -75,12 +67,26 @@ export function EditorialSection() {
           style={{
             transform: `scale(1.15) translate3d(0, ${parallaxY}px, 0) translateZ(0)`,
             WebkitTransform: `scale(1.15) translate3d(0, ${parallaxY}px, 0) translateZ(0)`,
-            backfaceVisibility: 'hidden',
-            WebkitBackfaceVisibility: 'hidden',
-            willChange: 'transform',
+            backfaceVisibility: "hidden",
+            WebkitBackfaceVisibility: "hidden",
+            willChange: "transform",
           }}
           src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/27eb7fb4-0105-4010-ac9e-0ac977a31b05_1-FZ89nvBAAsR3caRJbhYv7T2mjBofth.mp4"
         />
+        <div className="absolute inset-0 bg-background/30" />
+
+        <div className="absolute inset-0 flex items-end justify-start px-6 pb-10 md:px-12 md:pb-16 lg:px-20 lg:pb-20">
+          <div className="max-w-xl">
+            <p className="text-xs uppercase tracking-[0.3em] text-foreground/80">
+              The House
+            </p>
+            <p className="mt-3 font-display italic text-2xl leading-snug text-foreground md:text-4xl lg:text-5xl">
+              A 19th-century facade.
+              <br />
+              An interior built for sleep.
+            </p>
+          </div>
+        </div>
       </div>
 
       {/* Specs Grid */}
@@ -90,10 +96,10 @@ export function EditorialSection() {
             key={spec.label}
             className="border-b border-r border-border p-8 text-center last:border-r-0 md:border-b-0"
           >
-            <p className="mb-2 text-xs uppercase tracking-widest text-muted-foreground">
+            <p className="mb-3 text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
               {spec.label}
             </p>
-            <p className="font-medium text-foreground text-5xl">
+            <p className="font-display italic font-normal text-foreground text-5xl md:text-6xl">
               {spec.value}
             </p>
           </div>

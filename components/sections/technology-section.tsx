@@ -10,41 +10,42 @@ function ScrollRevealText({ text }: { text: string }) {
   useEffect(() => {
     const handleScroll = () => {
       if (!containerRef.current) return;
-      
+
       const rect = containerRef.current.getBoundingClientRect();
       const windowHeight = window.innerHeight;
-      
-      // Slower animation - more viewport range
+
       const startOffset = windowHeight * 0.9;
       const endOffset = windowHeight * 0.1;
-      
+
       const totalDistance = startOffset - endOffset;
       const currentPosition = startOffset - rect.top;
-      
+
       const newProgress = Math.max(0, Math.min(1, currentPosition / totalDistance));
       setProgress(newProgress);
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll(); // Initial check
-    
+    handleScroll();
+
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const words = text.split(" ");
-  
+
   return (
     <p
       ref={containerRef}
-      className="text-3xl font-semibold leading-snug text-white md:text-4xl lg:text-5xl"
+      className="font-display italic text-3xl leading-snug text-foreground md:text-4xl lg:text-5xl"
     >
       {words.map((word, index) => {
-        // Calculate blur and opacity based on scroll progress
         const appearProgress = progress * (words.length + 1);
-        const wordAppearProgress = Math.max(0, Math.min(1, appearProgress - index));
+        const wordAppearProgress = Math.max(
+          0,
+          Math.min(1, appearProgress - index)
+        );
         const wordOpacity = wordAppearProgress;
         const wordBlur = (1 - wordAppearProgress) * 40;
-        
+
         return (
           <span
             key={index}
@@ -52,8 +53,8 @@ function ScrollRevealText({ text }: { text: string }) {
             style={{
               opacity: wordOpacity,
               filter: `blur(${wordBlur}px)`,
-              transition: 'opacity 0.1s linear, filter 0.1s linear',
-              marginRight: '0.3em',
+              transition: "opacity 0.1s linear, filter 0.1s linear",
+              marginRight: "0.3em",
             }}
           >
             {word}
@@ -66,97 +67,93 @@ function ScrollRevealText({ text }: { text: string }) {
 
 const sideImages = [
   {
-    src: "/images/interior-view.png",
-    alt: "Interior view with landscape",
+    src: "/images/capsule-bathroom.jpg",
+    alt: "Bathhouse with terracotta tile",
     position: "left",
   },
   {
-    src: "/images/rusted-metal.png",
-    alt: "Rusted metal texture",
+    src: "/images/capsule-numbers.jpg",
+    alt: "Capsule pod door detail",
     position: "right",
   },
 ];
 
+const moodImages = [
+  {
+    src: "/images/capsule-pod-interior.jpg",
+    alt: "Capsule pod interior, evening",
+  },
+  {
+    src: "/images/capsule-lounge.jpg",
+    alt: "Lounge with green living wall",
+  },
+  {
+    src: "/images/capsule-hallway.jpg",
+    alt: "Hallway at dusk",
+  },
+  {
+    src: "/images/capsule-night.jpg",
+    alt: "Capsules at night",
+  },
+];
+
 const textCycles = [
-  "Design & Sustainability.",
-  "Passive Energy.",
-  "Bio-sourced Construction.",
+  "Acoustic isolation.",
+  "Climate-tuned air.",
+  "A bed, then nothing.",
 ];
 
 export function TechnologySection() {
   const sectionRef = useRef<HTMLElement>(null);
   const textSectionRef = useRef<HTMLDivElement>(null);
   const [scrollProgress, setScrollProgress] = useState(0);
-  const [textProgress, setTextProgress] = useState(0);
-  
-  const descriptionText = "Passive architecture reimagining modern living. Triple glazing, reinforced insulation and natural ventilation combine with solar panels to create an energy-autonomous home. Bio-sourced materials like solid wood and hemp wool ensure healthy indoor air and minimal ecological footprint.";
+
+  const descriptionText =
+    "Every capsule is double-shelled in laminated panels and acoustic foam — quieter than a private suite. Filtered, climate-balanced air. Memory-foam bedding wrapped in linen. Smart lighting that fades from amber to black as you settle in.";
 
   useEffect(() => {
     const handleScroll = () => {
       if (!sectionRef.current) return;
-      
+
       const rect = sectionRef.current.getBoundingClientRect();
-      const scrollableHeight = window.innerHeight * 4; // Increased for 3 text cycles
+      const scrollableHeight = window.innerHeight * 4;
       const scrolled = -rect.top;
       const progress = Math.max(0, Math.min(1, scrolled / scrollableHeight));
-      
-      setScrollProgress(progress);
 
-      // Text scroll progress
-      if (textSectionRef.current) {
-        const textRect = textSectionRef.current.getBoundingClientRect();
-        const windowHeight = window.innerHeight;
-        
-        const startOffset = windowHeight * 0.9;
-        const endOffset = windowHeight * 0.1;
-        
-        const totalDistance = startOffset - endOffset;
-        const currentPosition = startOffset - textRect.top;
-        
-        const newTextProgress = Math.max(0, Math.min(1, currentPosition / totalDistance));
-        setTextProgress(newTextProgress);
-      }
+      setScrollProgress(progress);
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
     handleScroll();
-    
+
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
-  // Title fades out first (0 to 0.2)
-  const titleOpacity = Math.max(0, 1 - (scrollProgress / 0.2));
-  
-  // Image transforms start after title fades (0.2 to 1)
   const imageProgress = Math.max(0, Math.min(1, (scrollProgress - 0.2) / 0.8));
-  
-  // Smooth interpolations
-  const centerWidth = 100 - (imageProgress * 58); // 100% to 42%
-  const centerHeight = 100 - (imageProgress * 30); // 100% to 70%
-  const sideWidth = imageProgress * 22; // 0% to 22%
-  const sideOpacity = imageProgress;
-  const sideTranslateLeft = -100 + (imageProgress * 100); // -100% to 0%
-  const sideTranslateRight = 100 - (imageProgress * 100); // 100% to 0%
-  const gap = imageProgress * 16; // 0px to 16px
 
-  // Calculate grayscale for text section based on textProgress
-  const grayscaleAmount = Math.round((1 - textProgress) * 100);
+  const centerWidth = 100 - imageProgress * 58;
+  const sideWidth = imageProgress * 22;
+  const sideOpacity = imageProgress;
+  const sideTranslateLeft = -100 + imageProgress * 100;
+  const sideTranslateRight = 100 - imageProgress * 100;
+  const gap = imageProgress * 16;
 
   return (
-    <section ref={sectionRef} className="relative bg-foreground">
+    <section ref={sectionRef} className="relative bg-background">
       {/* Sticky container for scroll animation */}
       <div className="sticky top-0 h-screen overflow-hidden">
         <div className="flex h-full w-full items-center justify-center">
-          {/* Bento Grid Container */}
-          <div 
+          <div
             className="relative flex h-full w-full items-stretch justify-center"
-            style={{ gap: `${gap}px`, padding: `${imageProgress * 16}px` }}
+            style={{
+              gap: `${gap}px`,
+              padding: `${imageProgress * 16}px`,
+            }}
           >
-            
             {/* Left Column */}
-            <div 
+            <div
               className="relative overflow-hidden will-change-transform"
               style={{
                 width: `${sideWidth}%`,
@@ -165,19 +162,21 @@ export function TechnologySection() {
                 opacity: sideOpacity,
               }}
             >
-              {sideImages.filter(img => img.position === "left").map((img, idx) => (
-                <Image
-                  key={idx}
-                  src={img.src || "/placeholder.svg"}
-                  alt={img.alt}
-                  fill
-                  className="object-cover"
-                />
-              ))}
+              {sideImages
+                .filter((img) => img.position === "left")
+                .map((img, idx) => (
+                  <Image
+                    key={idx}
+                    src={img.src || "/placeholder.svg"}
+                    alt={img.alt}
+                    fill
+                    className="object-cover"
+                  />
+                ))}
             </div>
 
             {/* Main Center Image */}
-            <div 
+            <div
               className="relative overflow-hidden will-change-transform"
               style={{
                 width: `${centerWidth}%`,
@@ -185,96 +184,106 @@ export function TechnologySection() {
                 flex: "0 0 auto",
               }}
             >
-              {/* Layered Images - Progressive Fade In */}
-              {/* Image 1 - Base layer - Sunrise/Sunset with sun rays */}
+              {/* Layered Mood Images */}
               <Image
-                src="/images/mono-1.png"
-                alt="Modern architecture at sunrise"
+                src={moodImages[0].src}
+                alt={moodImages[0].alt}
                 fill
                 className="object-cover"
-                style={{
-                  opacity: scrollProgress < 0.25 ? 1 : 1,
-                }}
+                priority
               />
-              
-              {/* Image 2 - Daytime scene - Fades in during first text cycle */}
+
               <Image
-                src="/images/mono-2.png"
-                alt="Modern architecture in daylight"
+                src={moodImages[1].src}
+                alt={moodImages[1].alt}
                 fill
                 className="absolute inset-0 object-cover"
                 style={{
-                  opacity: Math.max(0, Math.min(1, (scrollProgress - 0.1) / 0.2)),
-                  transition: 'opacity 0.3s ease',
+                  opacity: Math.max(
+                    0,
+                    Math.min(1, (scrollProgress - 0.1) / 0.2)
+                  ),
+                  transition: "opacity 0.3s ease",
                 }}
               />
-              
-              {/* Image 3 - Dusk/Evening - Fades in during second text cycle */}
+
               <Image
-                src="/images/mono-3.png"
-                alt="Modern architecture at dusk"
+                src={moodImages[2].src}
+                alt={moodImages[2].alt}
                 fill
                 className="absolute inset-0 object-cover"
                 style={{
-                  opacity: Math.max(0, Math.min(1, (scrollProgress - 0.4) / 0.2)),
-                  transition: 'opacity 0.3s ease',
+                  opacity: Math.max(
+                    0,
+                    Math.min(1, (scrollProgress - 0.4) / 0.2)
+                  ),
+                  transition: "opacity 0.3s ease",
                 }}
               />
-              
-              {/* Image 4 - Night with stars - Fades in during third text cycle */}
+
               <Image
-                src="/images/mono-4.png"
-                alt="Modern architecture at night"
+                src={moodImages[3].src}
+                alt={moodImages[3].alt}
                 fill
                 className="absolute inset-0 object-cover"
                 style={{
-                  opacity: Math.max(0, Math.min(1, (scrollProgress - 0.7) / 0.2)),
-                  transition: 'opacity 0.3s ease',
+                  opacity: Math.max(
+                    0,
+                    Math.min(1, (scrollProgress - 0.7) / 0.2)
+                  ),
+                  transition: "opacity 0.3s ease",
                 }}
               />
-              
-              <div className="absolute inset-0 bg-foreground/40" />
-              
+
+              <div className="absolute inset-0 bg-background/40" />
+
               {/* Title Text - Cycles through 3 texts with blur effect */}
-              <div 
-                className="absolute inset-0 flex flex-col items-center justify-center px-6 text-center"
-              >
+              <div className="absolute inset-0 flex flex-col items-center justify-center px-6 text-center">
                 {textCycles.map((text, cycleIndex) => {
-                  // Each text cycle takes 1/3 of the scroll progress
                   const cycleStart = cycleIndex / textCycles.length;
                   const cycleEnd = (cycleIndex + 1) / textCycles.length;
-                  const cycleMid = (cycleStart + cycleEnd) / 2;
-                  
+
                   const words = text.split(" ");
-                  
+
                   return (
-                    <h2 
+                    <h2
                       key={cycleIndex}
-                      className="absolute max-w-3xl font-medium leading-tight tracking-tight text-white md:text-5xl lg:text-7xl text-5xl"
+                      className="absolute max-w-3xl font-display italic font-normal leading-tight tracking-tight text-foreground md:text-6xl lg:text-7xl text-5xl"
                     >
                       {words.map((word, wordIndex) => {
                         let wordOpacity = 0;
                         let wordBlur = 40;
-                        
-                        if (scrollProgress >= cycleStart && scrollProgress < cycleEnd) {
-                          const localProgress = (scrollProgress - cycleStart) / (cycleEnd - cycleStart);
-                          
-                          // First half: appear (blur 40→0, opacity 0→1)
+
+                        if (
+                          scrollProgress >= cycleStart &&
+                          scrollProgress < cycleEnd
+                        ) {
+                          const localProgress =
+                            (scrollProgress - cycleStart) /
+                            (cycleEnd - cycleStart);
+
                           if (localProgress < 0.5) {
-                            const appearProgress = (localProgress / 0.5) * (words.length + 1);
-                            const wordAppearProgress = Math.max(0, Math.min(1, appearProgress - wordIndex));
+                            const appearProgress =
+                              (localProgress / 0.5) * (words.length + 1);
+                            const wordAppearProgress = Math.max(
+                              0,
+                              Math.min(1, appearProgress - wordIndex)
+                            );
                             wordOpacity = wordAppearProgress;
                             wordBlur = (1 - wordAppearProgress) * 40;
-                          } 
-                          // Second half: disappear (blur 0→40, opacity 1→0)
-                          else {
-                            const disappearProgress = ((localProgress - 0.5) / 0.5) * (words.length + 1);
-                            const wordDisappearProgress = Math.max(0, Math.min(1, disappearProgress - wordIndex));
+                          } else {
+                            const disappearProgress =
+                              ((localProgress - 0.5) / 0.5) *
+                              (words.length + 1);
+                            const wordDisappearProgress = Math.max(
+                              0,
+                              Math.min(1, disappearProgress - wordIndex)
+                            );
                             wordOpacity = 1 - wordDisappearProgress;
                             wordBlur = wordDisappearProgress * 40;
                           }
                         }
-                        
+
                         return (
                           <span
                             key={wordIndex}
@@ -282,8 +291,9 @@ export function TechnologySection() {
                             style={{
                               opacity: wordOpacity,
                               filter: `blur(${wordBlur}px)`,
-                              transition: 'opacity 0.1s linear, filter 0.1s linear',
-                              marginRight: '0.3em',
+                              transition:
+                                "opacity 0.1s linear, filter 0.1s linear",
+                              marginRight: "0.3em",
                             }}
                           >
                             {word}
@@ -297,7 +307,7 @@ export function TechnologySection() {
             </div>
 
             {/* Right Column */}
-            <div 
+            <div
               className="relative overflow-hidden will-change-transform"
               style={{
                 width: `${sideWidth}%`,
@@ -306,39 +316,39 @@ export function TechnologySection() {
                 opacity: sideOpacity,
               }}
             >
-              {sideImages.filter(img => img.position === "right").map((img, idx) => (
-                <Image
-                  key={idx}
-                  src={img.src || "/placeholder.svg"}
-                  alt={img.alt}
-                  fill
-                  className="object-cover"
-                />
-              ))}
+              {sideImages
+                .filter((img) => img.position === "right")
+                .map((img, idx) => (
+                  <Image
+                    key={idx}
+                    src={img.src || "/placeholder.svg"}
+                    alt={img.alt}
+                    fill
+                    className="object-cover"
+                  />
+                ))}
             </div>
-
           </div>
         </div>
       </div>
 
-      {/* Scroll space to enable animation - increased for 3 text cycles */}
+      {/* Scroll space to enable animation */}
       <div className="h-[400vh]" />
 
-      {/* Description Section with Background Image and Scroll Reveal */}
-      <div 
+      {/* Description Section with Scroll Reveal */}
+      <div
         ref={textSectionRef}
-        className="relative overflow-hidden px-6 py-24 md:px-12 md:py-32 lg:px-20 lg:py-40 bg-black"
+        className="relative overflow-hidden px-6 py-24 md:px-12 md:py-32 lg:px-20 lg:py-40 bg-background"
       >
-        {/* Gradient Overlay - Top to transparent */}
-        <div 
+        <div
           className="absolute top-0 left-0 right-0 z-0 pointer-events-none"
           style={{
-            height: '150px',
-            background: 'linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%)'
+            height: "150px",
+            background:
+              "linear-gradient(to bottom, var(--background) 0%, rgba(14, 13, 11, 0) 100%)",
           }}
         />
 
-        {/* Text Content */}
         <div className="relative z-10 mx-auto max-w-4xl">
           <ScrollRevealText text={descriptionText} />
         </div>
