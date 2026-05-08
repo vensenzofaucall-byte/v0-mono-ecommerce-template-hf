@@ -19,14 +19,14 @@ const sideImages = [
     span: 1,
   },
   {
-    src: "/images/capsule-lobby.jpg",
-    alt: "Capsule hotel lobby with mustard reception",
+    src: "/images/capsule-reception.jpg",
+    alt: "Capsule hotel reception area",
     position: "right",
     span: 1,
   },
   {
     src: "/images/capsule-night.jpg",
-    alt: "Capsules at night with starry projection",
+    alt: "Capsules at night with ambient lighting",
     position: "right",
     span: 1,
   },
@@ -205,7 +205,7 @@ export function HeroSection() {
 
       {/* Tagline Section - Fixed at bottom */}
       <div
-        className="pointer-events-none fixed bottom-0 left-0 right-0 z-10 px-6 pb-12 md:px-12 md:pb-16 lg:px-20 lg:pb-20"
+        className="pointer-events-none fixed bottom-0 left-0 right-0 z-10 px-6 pb-16 md:px-12 md:pb-20 lg:px-20 lg:pb-24"
         style={{ opacity: textOpacity }}
       >
         <p className="mx-auto max-w-2xl text-center font-display text-3xl italic leading-snug text-foreground md:text-4xl lg:text-[2.75rem]">
@@ -213,6 +213,14 @@ export function HeroSection() {
           <br />
           A capsule in the city.
         </p>
+        
+        {/* Scroll indicator */}
+        <div className="mt-10 flex flex-col items-center gap-3 animate-pulse">
+          <span className="text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
+            Scroll
+          </span>
+          <div className="w-px h-8 bg-gradient-to-b from-accent/60 to-transparent" />
+        </div>
       </div>
 
       {/* Scroll space to enable animation */}

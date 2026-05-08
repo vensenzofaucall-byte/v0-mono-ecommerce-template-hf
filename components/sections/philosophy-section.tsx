@@ -3,9 +3,9 @@
 import { useEffect, useRef, useState, useCallback } from "react";
 
 const titles = [
-  "Less room. More rest.",
-  "An urban refuge.",
-  "Designed to disappear.",
+  { text: "Less room. More rest.", number: "01" },
+  { text: "An urban refuge.", number: "02" },
+  { text: "Designed to disappear.", number: "03" },
 ];
 
 export function PhilosophySection() {
@@ -110,9 +110,9 @@ export function PhilosophySection() {
                   }
 
                   return (
-                    <h2
+                    <div
                       key={index}
-                      className="absolute inset-0 flex items-center justify-center font-display italic font-normal text-[10vw] sm:text-[8vw] leading-tight tracking-tight text-foreground md:text-[7vw] lg:text-[6vw] text-center px-4"
+                      className="absolute inset-0 flex flex-col items-center justify-center px-4"
                       style={{
                         transform: `rotateX(${rotateX}deg) translateZ(0)`,
                         opacity,
@@ -123,8 +123,13 @@ export function PhilosophySection() {
                         WebkitFontSmoothing: "antialiased",
                       }}
                     >
-                      {title}
-                    </h2>
+                      <span className="text-xs font-mono tracking-[0.3em] text-accent mb-4">
+                        {title.number}
+                      </span>
+                      <h2 className="font-display italic font-normal text-[10vw] sm:text-[8vw] leading-tight tracking-tight text-foreground md:text-[7vw] lg:text-[6vw] text-center">
+                        {title.text}
+                      </h2>
+                    </div>
                   );
                 })}
               </div>

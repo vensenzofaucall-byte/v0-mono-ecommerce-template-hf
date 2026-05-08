@@ -98,9 +98,9 @@ const moodImages = [
 ];
 
 const textCycles = [
-  "Acoustic isolation.",
-  "Climate-tuned air.",
-  "A bed, then nothing.",
+  { text: "Acoustic isolation.", icon: "◉" },
+  { text: "Climate-tuned air.", icon: "◎" },
+  { text: "A bed, then nothing.", icon: "○" },
 ];
 
 export function TechnologySection() {

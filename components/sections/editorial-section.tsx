@@ -3,10 +3,10 @@
 import { useRef, useState, useEffect, useCallback } from "react";
 
 const specs = [
-  { label: "Capsules", value: "48" },
-  { label: "Floors", value: "02" },
-  { label: "Check-in", value: "24h" },
-  { label: "Quiet hours", value: "22—07" },
+  { label: "Capsules", value: "48", suffix: "pods" },
+  { label: "Floors", value: "02", suffix: "levels" },
+  { label: "Check-in", value: "24h", suffix: "always" },
+  { label: "Quiet hours", value: "22—07", suffix: "silence" },
 ];
 
 export function EditorialSection() {
@@ -73,17 +73,22 @@ export function EditorialSection() {
           }}
           src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/27eb7fb4-0105-4010-ac9e-0ac977a31b05_1-FZ89nvBAAsR3caRJbhYv7T2mjBofth.mp4"
         />
-        <div className="absolute inset-0 bg-background/30" />
+        {/* Layered gradients for depth */}
+        <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-background/20 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-background/50 via-transparent to-transparent" />
 
         <div className="absolute inset-0 flex items-end justify-start px-6 pb-10 md:px-12 md:pb-16 lg:px-20 lg:pb-20">
           <div className="max-w-xl">
-            <p className="text-xs uppercase tracking-[0.3em] text-foreground/80">
+            <p className="text-xs uppercase tracking-[0.3em] text-accent">
               The House
             </p>
-            <p className="mt-3 font-display italic text-2xl leading-snug text-foreground md:text-4xl lg:text-5xl">
+            <p className="mt-4 font-display italic text-2xl leading-snug text-foreground md:text-4xl lg:text-5xl">
               A 19th-century facade.
               <br />
               An interior built for sleep.
+            </p>
+            <p className="mt-6 text-sm text-foreground/70 max-w-md hidden md:block">
+              Stone and greenery meet precision-engineered rest spaces.
             </p>
           </div>
         </div>
@@ -91,17 +96,28 @@ export function EditorialSection() {
 
       {/* Specs Grid */}
       <div className="grid grid-cols-2 border-t border-border md:grid-cols-4">
-        {specs.map((spec) => (
+        {specs.map((spec, index) => (
           <div
             key={spec.label}
-            className="border-b border-r border-border p-8 text-center last:border-r-0 md:border-b-0"
+            className="group relative border-b border-r border-border p-8 md:p-10 text-center last:border-r-0 md:border-b-0 transition-all duration-500 hover:bg-secondary/30"
           >
-            <p className="mb-3 text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
+            {/* Subtle top accent on hover */}
+            <div className="absolute top-0 left-0 right-0 h-px bg-accent scale-x-0 transition-transform duration-500 group-hover:scale-x-100" />
+            
+            <p className="mb-3 text-[10px] uppercase tracking-[0.3em] text-muted-foreground transition-colors duration-300 group-hover:text-accent">
               {spec.label}
             </p>
-            <p className="font-display italic font-normal text-foreground text-5xl md:text-6xl">
+            <p className="font-display italic font-normal text-foreground text-5xl md:text-6xl lg:text-7xl transition-all duration-500 group-hover:scale-105">
               {spec.value}
             </p>
+            <p className="mt-2 text-[10px] uppercase tracking-[0.2em] text-muted-foreground/50 opacity-0 translate-y-2 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0">
+              {spec.suffix}
+            </p>
+            
+            {/* Index number */}
+            <span className="absolute bottom-3 right-3 font-mono text-[10px] text-muted-foreground/30">
+              {String(index + 1).padStart(2, "0")}
+            </span>
           </div>
         ))}
       </div>
